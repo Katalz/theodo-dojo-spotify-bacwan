@@ -27,7 +27,10 @@ const App = () => {
   if (tracks === undefined) {
     return <div> Loading ...</div>;
   }
-  const [trackIndex, setTrackIndex] = useState(0);
+  const [trackIndex, setTrackIndex] = useState(
+    Math.floor(Math.random() * tracks.length),
+  );
+
   const goToNextTrack = () => {
     if (trackIndex == 3) {
       setTrackIndex(0);
@@ -38,7 +41,9 @@ const App = () => {
 
   const checkAnswer = id => {
     if (id == trackIndex) {
-      Swal.fire('Bravo', 'Sous-titre', 'success');
+      Swal.fire('Bravo', 'Tu as gagné', 'success');
+    } else {
+      Swal.fire('0/20', "C'est pas du tout ça", 'success');
     }
   };
 
@@ -63,14 +68,14 @@ const App = () => {
         {/* <p>{message}</p> */}
       </div>
       <div className="App-buttons">
-        <button onClick={() => checkAnswer(0)}>
-          {track1.track.album.name}
+        <button onClick={() => checkAnswer(2)}>
+          {track3.track.album.name}
         </button>
         <button onClick={() => checkAnswer(1)}>
           {track2.track.album.name}
         </button>
-        <button onClick={() => checkAnswer(2)}>
-          {track3.track.album.name}
+        <button onClick={() => checkAnswer(0)}>
+          {track1.track.album.name}
         </button>
       </div>
     </div>
