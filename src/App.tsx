@@ -16,6 +16,7 @@ const App = () => {
     queryKey: ['tracks'],
     queryFn: fetchTracks,
   });
+  console.log(tracks);
   const [trackIndex, setTrackIndex] = useState(0);
   const goToNextTrack = () => {
     setTrackIndex(trackIndex + 1);
@@ -29,7 +30,7 @@ const App = () => {
       <div className="App-images">
         <audio src={trackUrls[trackIndex]} autoPlay controls />
         <button onClick={goToNextTrack}>Next track</button>
-        <p>Il va falloir modifier le code pour faire un vrai blind test !</p>
+        <p>Il y a {tracks.length} morceaux</p>
       </div>
       <div className="App-buttons"></div>
     </div>
