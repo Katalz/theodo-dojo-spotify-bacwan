@@ -12,6 +12,12 @@ const trackUrls = [
   'https://p.scdn.co/mp3-preview/ac28d1b0be285ed3bfd8e9fa5fad133776d7cf36',
 ];
 
+const AlbumCover = ({ currentTrack }: { currentTrack: SavedTrack }) => {
+  const src = currentTrack.track.album.images[0].url;
+  console.log('Valeur :' + JSON.stringify(currentTrack));
+  return <img src={src} style={{ width: 400, height: 400 }} />;
+};
+
 const App = () => {
   const { data: tracks } = useQuery({
     queryKey: ['tracks'],
@@ -21,11 +27,15 @@ const App = () => {
   const goToNextTrack = () => {
     setTrackIndex(trackIndex + 1);
   };
-  if (tracks != undefined) {
-    console.log('Tracks ', tracks[0]);
+  if (tracks === undefined) {
+    return <div> Loading ...</div>;
   }
+  const currentTrack: SavedTrack = tracks[0];
   const message =
-    tracks === undefined ? 'Aucun morceaux' : tracks[0].track.name + ' morceaux';
+    'Parmis vos morceaux likés, il y a ' +
+    tracks.length +
+    ' morceaux, dont le premier est : ' +
+    tracks[0].track.name;
   return (
     <div className="App">
       <header className="App-header">
@@ -33,7 +43,8 @@ const App = () => {
         <h1 className="App-title">Bienvenue sur le blind test</h1>
       </header>
       <div className="App-images">
-        <audio src={trackUrls[trackIndex]} autoPlay controls />
+        <AlbumCover currentTrack={currentTrack} />
+        <audio src={currentTrack.track.preview_url} autoPlay controls />
         <button onClick={goToNextTrack}>Next track</button>
         <p>{message}</p>
       </div>
