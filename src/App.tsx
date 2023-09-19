@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { fetchTracks } from './lib/fetchTracks';
 import { useQuery } from '@tanstack/react-query';
 import { SavedTrack } from 'spotify-types';
-import { swal } from 'swal';
+import Swal from 'sweetalert2';
 const trackUrls = [
   'https://p.scdn.co/mp3-preview/742294f35af9390e799dd96c633788410a332e52',
   'https://p.scdn.co/mp3-preview/5a12483aa3b51331aba663131dbac967ccb33d99',
@@ -36,11 +36,11 @@ const App = () => {
     }
   };
 
-  const checkAnswer = (id) => {
-    if (id == trackIndex){
-      swal('Bravo', 'Sous-titre', 'success');
+  const checkAnswer = id => {
+    if (id == trackIndex) {
+      Swal.fire('Bravo', 'Sous-titre', 'success');
     }
-  }
+  };
 
   const track1 = tracks[0];
   const track2 = tracks[1];
@@ -63,9 +63,15 @@ const App = () => {
         {/* <p>{message}</p> */}
       </div>
       <div className="App-buttons">
-        <button onClick={() => checkAnswer(0)}>{track1.track.album.name}</button>
-        <button onClick={() => checkAnswer(1)}>{track2.track.album.name}</button>
-        <button onClick={() => checkAnswer(2)}>{track3.track.album.name}</button>
+        <button onClick={() => checkAnswer(0)}>
+          {track1.track.album.name}
+        </button>
+        <button onClick={() => checkAnswer(1)}>
+          {track2.track.album.name}
+        </button>
+        <button onClick={() => checkAnswer(2)}>
+          {track3.track.album.name}
+        </button>
       </div>
     </div>
   );
