@@ -35,6 +35,10 @@ const App = () => {
     }
   };
   const currentTrack = tracks[0];
+
+  const track1 = tracks[0];
+  const track2 = tracks[1];
+  const track3 = tracks[2];
   const message =
     'Parmis vos morceaux likés, il y a ' +
     tracks.length +
@@ -52,7 +56,11 @@ const App = () => {
         <button onClick={goToNextTrack}>Next track</button>
         <p>{message}</p>
       </div>
-      <div className="App-buttons"></div>
+      <div className="App-buttons">
+        <button>{track1.track.album.name}</button>
+        <button>{track2.track.album.name}</button>
+        <button>{track3.track.album.name}</button>
+      </div>
     </div>
   );
 };
