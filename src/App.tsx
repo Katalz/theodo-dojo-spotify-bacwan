@@ -3,7 +3,7 @@ import './App.css';
 import { useState } from 'react';
 import { fetchTracks } from './lib/fetchTracks';
 import { useQuery } from '@tanstack/react-query';
-import 'spotify-types';
+import { SavedTrack } from 'spotify-types';
 const trackUrls = [
   'https://p.scdn.co/mp3-preview/742294f35af9390e799dd96c633788410a332e52',
   'https://p.scdn.co/mp3-preview/5a12483aa3b51331aba663131dbac967ccb33d99',
@@ -23,14 +23,18 @@ const App = () => {
     queryKey: ['tracks'],
     queryFn: fetchTracks,
   });
-  const [trackIndex, setTrackIndex] = useState(0);
-  const goToNextTrack = () => {
-    setTrackIndex(trackIndex + 1);
-  };
   if (tracks === undefined) {
     return <div> Loading ...</div>;
   }
-  const currentTrack: SavedTrack = tracks[0];
+  const [trackIndex, setTrackIndex] = useState(0);
+  const goToNextTrack = () => {
+    if (trackIndex == 3) {
+      setTrackIndex(0);
+    } else {
+      setTrackIndex(trackIndex + 1);
+    }
+  };
+  const currentTrack = tracks[0];
   const message =
     'Parmis vos morceaux likés, il y a ' +
     tracks.length +
@@ -43,8 +47,8 @@ const App = () => {
         <h1 className="App-title">Bienvenue sur le blind test</h1>
       </header>
       <div className="App-images">
-        <AlbumCover currentTrack={currentTrack} />
-        <audio src={currentTrack.track.preview_url} autoPlay controls />
+        <AlbumCover currentTrack={tracks[trackIndex]} />
+        <audio src={tracks[trackIndex].track.preview_url} autoPlay controls />
         <button onClick={goToNextTrack}>Next track</button>
         <p>{message}</p>
       </div>
