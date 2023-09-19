@@ -21,6 +21,8 @@ const App = () => {
   const goToNextTrack = () => {
     setTrackIndex(trackIndex + 1);
   };
+  const message =
+    tracks === undefined ? 'Aucun morceaux' : tracks.length + ' morceaux';
   return (
     <div className="App">
       <header className="App-header">
@@ -30,7 +32,7 @@ const App = () => {
       <div className="App-images">
         <audio src={trackUrls[trackIndex]} autoPlay controls />
         <button onClick={goToNextTrack}>Next track</button>
-        <p>Il y a {tracks.length} morceaux</p>
+        <p>{message}</p>
       </div>
       <div className="App-buttons"></div>
     </div>
